@@ -27,13 +27,12 @@ void CMonster_1::Initialize()
 int CMonster_1::Update()
 {
    // 중력대신..
-    m_tInfo.fY += fGravity;
-    if (780 > m_tInfo.fY && 522 < m_tInfo.fY)
-        fGravity = 0.f;
+    Jumping();
+   
 
     m_tInfo.fX -= m_fSpeed; 
   
-    if (m_tInfo.fX > 800 || m_tInfo.fX < 100)
+    if (m_tInfo.fX > 700 || m_tInfo.fX < 100)
         m_fSpeed *= -1.f; 
 
     // 죽었을 경우 처리

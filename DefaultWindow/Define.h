@@ -247,7 +247,7 @@ typedef struct tagAniInfo
 	tagAniInfo() { ZeroMemory(this, sizeof(tagAniInfo)); }
 	tagAniInfo(FPOINT _tImgLT, FPOINT _tPosLT, FPOINT _tSize, INFO _tTargetInfo, int _iDuration, int _iMaxFrame)
 	{
-		tImgLT = _tImgLT; tPosLT = _tPosLT; tSize = _tSize; tTargetInfo = _tTargetInfo; _iDuration = _iDuration; iMaxFrame = _iMaxFrame;
+		tImgLT = _tImgLT; tPosLT = _tPosLT; tSize = _tSize; tTargetInfo = _tTargetInfo; iDuration = _iDuration; iMaxFrame = _iMaxFrame;
 	}
 }ANINFO;
 

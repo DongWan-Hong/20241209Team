@@ -8,6 +8,7 @@
 #include "CAbstractFactory.h"
 #include "CFire_Storm.h"
 #include "CObjMgr.h"
+#include "CCollisionMgr.h"
 
 CBoss_FireMan::CBoss_FireMan()
 {
@@ -52,48 +53,56 @@ void CBoss_FireMan::Initialize()
 	MAX_Hp = 10;
 	 
 }
+
+
 //CObjMgr::Get_Instance()->Add_Object(OBJ_BOSSBULLET, CAbstractFactory<CFire_Storm>::Create(m_tInfo.fX, m_tInfo.fY, DIR_RIGHT));
+
+
+
 int CBoss_FireMan::Update()
 {
-	Jumping();
+    Jumping();
 
+    float Distance = CCollisionMgr::Collision_RangeChack(m_pPlayer, this);
 
-	m_tInfo.fX += m_fSpeed;
+   
+   if (Distance < 300) // 400보다 가까우면
+    {
+        // 보스가 플레이어를 피해 이동
+        if (m_tInfo.fX < m_pPlayer->Get_Info().fX)
+            m_tInfo.fX -= m_fSpeed; // 왼쪽으로 이동
+        else
+            m_tInfo.fX += m_fSpeed; // 오른쪽으로 이동
+    }
+    else // Distance == 400 (거리를 유지하고 있을 때)
+    {
+        // 발사 조건: 400 거리 유지 중, 0.8초마다 발사
+        if (m_ullLast_Fire + 800 < GetTickCount64())
+        {
+            m_ullLast_Fire = GetTickCount64(); // 마지막 발사 시간 갱신
 
-	if (m_tInfo.fX > 700|| m_tInfo.fX<150)
-	{
-		m_fSpeed *= -1;
-	}
+            if (m_tInfo.fX > m_pPlayer->Get_Info().fX) // 플레이어의 왼쪽에 있을 때
+            {
+                CObjMgr::Get_Instance()->Add_Object(
+                    OBJ_BOSSBULLET,
+                    CAbstractFactory<CFire_Storm>::Create(m_tInfo.fX, m_tInfo.fY, DIR_LEFT)
+                );
+            }
+            else // 플레이어의 오른쪽에 있을 때
+            {
+                CObjMgr::Get_Instance()->Add_Object(
+                    OBJ_BOSSBULLET,
+                    CAbstractFactory<CFire_Storm>::Create(m_tInfo.fX, m_tInfo.fY, DIR_RIGHT)
+                );
+            }
+        }
+    }
 
-	if (m_ullLast_Fire + 800 < GetTickCount64()) // 0.8초에 한번씩 발사
-	{
-		m_ullLast_Fire = GetTickCount64(); // 마지막 발사 시간갱신
-
-		if (m_tInfo.fX > m_pPlayer->Get_Info().fX) // 플레이어의 왼쪽에 있을 때
-		{
-			CObjMgr::Get_Instance()->Add_Object
-
-			(OBJ_BOSSBULLET,CAbstractFactory<CFire_Storm>::Create(m_tInfo.fX, m_tInfo.fY, DIR_LEFT)
-
-			);
-		}
-		else // 플레이어의 오른쪽에 있을 때
-		{
-			CObjMgr::Get_Instance()->Add_Object(
-				OBJ_BOSSBULLET,
-				CAbstractFactory<CFire_Storm>::Create(m_tInfo.fX, m_tInfo.fY, DIR_RIGHT)
-			);
-		}
-	}
-
-	//Jumping();
-
-	// 랜덤 점프
-
-
-	Update_Rect();
-	return OBJ_NOEVENT;
+    Update_Rect();
+    return OBJ_NOEVENT;
 }
+
+
 
 
 void CBoss_FireMan::Late_Update()

@@ -10,6 +10,8 @@
 #include "CWall.h"
 #include "CScrollMgr.h"
 #include "Boss_FireMan.h"
+#include"CMonster_1.h"
+#include "CMonster_2.h"
 
 
 CStage_Hong::CStage_Hong()
@@ -26,6 +28,8 @@ void CStage_Hong::Initialize()
 	//CBlockMgr::Get_Instance()->Initialize();
 
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BOSS, CAbstractFactory<CBoss_FireMan>::Create());
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BOSS, CAbstractFactory<CMonster_1>::Create());
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BOSS, CAbstractFactory<CMonster_2>::Create());
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Back.bmp", L"Back");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Ground.bmp", L"Ground");
 	

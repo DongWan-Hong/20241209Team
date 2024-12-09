@@ -14,7 +14,7 @@ void CFire_Storm::Initialize()
 	m_pPlayer = CObjMgr::Get_Instance()->Get_Player();
 	
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Rock_Man/boss_fire_all.bmp", L"Left_Fire");
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Rock_Man/boss_fire_all_X_Change.bmp", L"Right_Fire");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Rock_Man/boss_fire_all_flip.bmp", L"Right_Fire");
 	if (m_eDir == DIR_LEFT)
 		m_fSpeed *= -1;
 }
@@ -53,7 +53,7 @@ void CFire_Storm::Render(HDC hDC)
 		(int)m_tInfo.fCY + 40,          // 출력할 이미지의 높이 (m_tInfo.fCY 안보여서.. +40 추가)
  		hMemDC,                         // 출력할 원본 이미지의 DC (이미지 핸들)
 		(m_eDir == DIR_LEFT) ? 308 : 161, // 원본 이미지에서 복사할 시작 X 좌표 (방향에 따라 다름)
-		(m_eDir == DIR_LEFT) ? 98 : 102,  // 원본 이미지에서 복사할 시작 Y 좌표 (방향에 따라 다름)
+		(m_eDir == DIR_LEFT) ? 98 : 2,  // 원본 이미지에서 복사할 시작 Y 좌표 (방향에 따라 다름)
 		(int)m_tInfo.fCX + 15,          // 원본 이미지에서 복사할 영역의 너비 
 		(int)m_tInfo.fCY + 40,          // 원본 이미지에서 복사할 영역의 높이 
 		RGB(128, 0, 128));             // 투명 처리 색상 (이미지에서 이 색상을 투명하게 처리)
