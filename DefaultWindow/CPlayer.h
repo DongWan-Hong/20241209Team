@@ -16,7 +16,7 @@ public:
     virtual void Late_Update() override;
     virtual void Render(HDC hDC) override;
     virtual void Release() override;
-
+    void Initialize_Animation();
     void Create_Bullet(); // 篮己 内靛
     void Set_Damaged(const DIRECTION& _eDir); // 篮己内靛
     void Set_Fallen(const DIRECTION& _eDir); // 篮己内靛

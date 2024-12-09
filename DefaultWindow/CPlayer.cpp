@@ -10,6 +10,9 @@
 #include "CRolling_Cutter.h"
 #include "CRolling_Cutter_P.h"
 #include "CWeaponsMenuMgr.h"
+#include "CSuper_Arm.h"
+#include "CAnimMgr.h"
+
 
 
 CPlayer::CPlayer()
@@ -48,8 +51,63 @@ void CPlayer::Initialize()
 	m_iBulletCount[BUL_ICE] = 10;
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Rock_Man/player_all_2x.bmp", L"Player");
+	Initialize_Animation();
 }
 
+
+void CPlayer::Initialize_Animation()
+{
+
+	// Right.LT.X = IMAGE_SIZE.X - left.LT.X - FRAME_SIZE.X
+	// Left 동일
+	// IMAGE_SIZE = 644
+
+	FPOINT t_size = { 48, 68 };
+
+	//run
+	ANIMATION_CREATE(L"player_run_left", this, t_size, 130, 4, L"Player_Left");
+	ANIMATION_EDIT(L"player_run_left", 124, 0, t_size, 0);
+	ANIMATION_EDIT(L"player_run_left", 124 + 48, 0, t_size, 1);
+	ANIMATION_EDIT(L"player_run_left", 124 + 48 * 2, 0, t_size, 2);
+	ANIMATION_EDIT(L"player_run_left", 124 + 48, 0, t_size, 3);
+	ANIMATION_CREATE(L"player_run_right", this, t_size, 130, 4, L"Player_Right");
+	ANIMATION_EDIT(L"player_run_right", 472, 0, t_size, 0);
+	ANIMATION_EDIT(L"player_run_right", 472 - 48, 0, t_size, 1);
+	ANIMATION_EDIT(L"player_run_right", 472 - 48 * 2, 0, t_size, 2);
+	ANIMATION_EDIT(L"player_run_right", 472 - 48, 0, t_size, 3);
+
+	//idle
+	ANIMATION_CREATE(L"player_idle_right", this, t_size, 500, 1, L"Player_Right");
+	ANIMATION_EDIT(L"player_idle_right", 203, 0, t_size, 0);
+	ANIMATION_CREATE(L"player_idle_left", this, t_size, 500, 1, L"Player_Left");
+	ANIMATION_EDIT(L"player_idle_left", 393, 0, t_size, 0);
+
+	//jump
+	int iImgSize = 644;
+	t_size = { 52, 68 };
+	ANIMATION_CREATE(L"player_jump_left", this, t_size, 500, 1, L"Player_Left");
+	ANIMATION_EDIT(L"player_jump_left", 62, 0, t_size, 0);
+
+	ANIMATION_CREATE(L"player_jump_right"	// 애니메이션의 키 값(map.first)
+		, this								// this 고정(Get_Info 용도)
+		, t_size							// 이미지 한 칸의 사이즈
+		, 500								// 프레임 당 시간(ms, 50 ~ 150 추천)
+		, 1									// 프레임 수
+		, L"Player_Right");					// BmpMgr::Insert_Bmp로 넣을 때 지정한 원본 이미지의 키 값
+
+	ANIMATION_EDIT(L"player_jump_right"		// 애니메이션의 키 값(map.first)
+		, iImgSize - 62 - t_size.fX			// 각 프레임의 LT.X 좌표
+		// 좌우반전시 (전체 가로길이 - 반대측의 LT.X좌표 - 이미지의 가로길이) 로 써도 되고 그냥 계산해서 넣어도..
+		, 0									// 각 프레임의 LT.Y 좌표
+		, t_size							// 이미지 한 칸의 사이즈
+		, 0);								// 몇번째 프레임인지 (인덱스이므로 0부터 시작)
+
+	//damaged 96 83
+	ANIMATION_CREATE(L"player_damaged_right", this, t_size, 500, 1, L"Player_Right");
+	ANIMATION_EDIT(L"player_damaged_right", 644 - 96 - 52, 83, t_size, 0);
+	ANIMATION_CREATE(L"player_damaged_left", this, t_size, 500, 1, L"Player_Left");
+	ANIMATION_EDIT(L"player_damaged_left", 96, 83, t_size, 0);
+}
 int CPlayer::Update()
 {
 	if (m_iHp <= 0) // 플레이어 피 소진시
@@ -106,50 +164,49 @@ void CPlayer::Render(HDC hDC)
 	//스크롤 위치 계산
 	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
 	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+	;
 
-	//Rectangle(hDC,
-	//	m_tRect.left + iScrollX,
-	//	m_tRect.top,
-	//	m_tRect.right + iScrollX,
-	//	m_tRect.bottom);
+	switch (m_eDir)
+	{
+	case DIR_LEFT:
+		if (m_bDamaged)
+		{
+			if (m_bBlink)
+				ANIMATION_RENDER(hDC, L"player_damaged_left", this);
+			if (m_ullBlink + 50 < GetTickCount64())
+			{
+				m_bBlink = !m_bBlink;
+				m_ullBlink = GetTickCount64();
+			}
+		}
+		else if (GetAsyncKeyState('Z'))
+			ANIMATION_RENDER(hDC, L"player_jump_left", this);
+		else if (GetAsyncKeyState(VK_LEFT))
+			ANIMATION_RENDER(hDC, L"player_run_left", this);
+		else
+			ANIMATION_RENDER(hDC, L"player_idle_left", this);
+		break;
+	case DIR_RIGHT:
+		if (m_bDamaged)
+		{
+			if (m_bBlink)
+				ANIMATION_RENDER(hDC, L"player_damaged_right", this);
+			if (m_ullBlink + 50 < GetTickCount64())
+			{
+				m_bBlink = !m_bBlink;
+				m_ullBlink = GetTickCount64();
+			}
+		}
+		else if (GetAsyncKeyState('Z'))
+			ANIMATION_RENDER(hDC, L"player_jump_right", this);
+		else if (GetAsyncKeyState(VK_RIGHT))
+			ANIMATION_RENDER(hDC, L"player_run_right", this);
+		else
+			ANIMATION_RENDER(hDC, L"player_idle_right", this);
 
-	//if (m_bDamaged)
-	//{
-	//	if (m_bBlink)
-	//	{
-	//		Rectangle(hDC,
-	//			m_tRect.left + iScrollX,
-	//			m_tRect.top + iScrollY,
-	//			m_tRect.right + iScrollX,
-	//			m_tRect.bottom + iScrollY);
-	//	}
+		break;
+	}
 
-	//	if (m_ullBlink + 50 < GetTickCount64())
-	//	{
-	//		m_bBlink = !m_bBlink;
-	//		m_ullBlink = GetTickCount64();
-	//	}
-	//}
-	//else
-	//{
-	//	Rectangle(hDC,
-	//		m_tRect.left + iScrollX,
-	//		m_tRect.top + iScrollY,
-	//		m_tRect.right + iScrollX,
-	//		m_tRect.bottom + iScrollY);
-	//}
-
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Player");
-
-	BitBlt(hDC,						// 복사 받을 DC
-		m_tRect.left + iScrollX,	// 복사 받을 위치 좌표 X, Y	
-		m_tRect.top + iScrollY,// 복사 받을 위치 좌표 X, Y	
-		(int)m_tInfo.fCX,		// 복사 받을 이미지의 가로, 세로
-		(int)m_tInfo.fCY,
-		hMemDC,						// 복사할 이미지 DC
-		15,							// 비트맵 출력 시작 좌표(Left, top)
-		430,
-		SRCCOPY);
 
 	TCHAR szBuf[32] = {};
 	wsprintf(szBuf, L"플레이어 좌표 : (%d,%d)", (int)m_tInfo.fX, (int)m_tInfo.fY);

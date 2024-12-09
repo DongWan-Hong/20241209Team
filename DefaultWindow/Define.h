@@ -19,6 +19,21 @@
 #define DEGREE(Radian)        (Radian)*180.f/PI
 // 은성코드
 
+
+#define ANIMATION_CREATE(ANIKEY, THIS, FRAMESIZE, FRAMETIME, FRAMECOUNT, IMGKEY)	CAnimMgr::Get_Instance()->Insert_Animation(ANIKEY, CAbstractFactory<CAnimation>::Create(THIS, FRAMESIZE, FRAMETIME, FRAMECOUNT, IMGKEY))
+#define ANIMATION_EDIT(KEY, LTX, LTY, FRAMESIZE, IDX)								CAnimMgr::Get_Instance()->Edit_Animation(KEY, {LTX, LTY}, FRAMESIZE, IDX)
+// SSIZE매크로는 자르기 시작할 LT좌표만 변경하고 전부 일정 X값만큼 동일하게 이동만 해도 되는 경우
+// IDX(프레임 인덱스)값 대신 총 프레임 수를 넣어서 자동으로 자르는 용도입니다 (L은 캐릭터가 좌측을 바라보는 사진의 경우, R은 우측)
+#define ANIMATION_EDIT_SSIZE_L(KEY, LTX, LTY, FRAMESIZE, FRAMECOUNT)		for (int i = 0; i < FRAMECOUNT; ++i){ CAnimMgr::Get_Instance()->Edit_Animation(KEY, {LTX + FRAMESIZE.fX * i, LTY}, FRAMESIZE, i); }
+#define ANIMATION_EDIT_SSIZE_R(KEY, LTX, LTY, FRAMESIZE, FRAMECOUNT)		for (int i = 0; i < FRAMECOUNT; ++i){ CAnimMgr::Get_Instance()->Edit_Animation(KEY, {LTX - FRAMESIZE.fX * i, LTY}, FRAMESIZE, i); }
+#define ANIMATION_RENDER(HDCHDC, ANIKEY, THIS)								CAnimMgr::Get_Instance()->Render(HDCHDC, ANIKEY, THIS)
+
+
+
+
+
+
+
 extern HWND		g_hWnd;
 //extern int g_CurrentStage; // 현재 스테이지 어떤 스테이지인지 
 

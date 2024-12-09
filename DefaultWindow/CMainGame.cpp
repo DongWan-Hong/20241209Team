@@ -31,6 +31,8 @@ void CMainGame::Initialize()
 {
     m_hDC = GetDC(g_hWnd);
 CSceneMgr::Get_Instance()->Initialize();
+CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Rock_Man/player_all_flip_2x.bmp", L"Player_Left");
+CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Rock_Man/player_all_2x.bmp", L"Player_Right");
 CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Back.bmp", L"Back");
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Rock_Man/Start/Bmp/Start_1.bmp", L"Start_1");

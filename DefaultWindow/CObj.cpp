@@ -27,9 +27,7 @@ void CObj::Jumping()
 {
 	if (m_bJump)
 	{
-		m_tInfo.fY -= (m_fJumpPower * m_fTime) - (G_FORCE * SQUARE(m_fTime)) * 0.5f;
-		m_fTime += 0.2f;
-
+		Jump_Pattern();
 		if (m_fCellingY != 0 && (m_fCellingY > m_tInfo.fY))
 		{
 			m_tInfo.fY = m_fCellingY;
@@ -53,4 +51,13 @@ void CObj::Jumping()
 	{
 		m_tInfo.fY = m_fLineY;
 	}
+}
+
+void CObj::Jump_Pattern()
+{
+	
+	m_tInfo.fY -= (m_fJumpPower * m_fTime) - (G_FORCE * SQUARE(m_fTime)) * 0.5f;
+	m_fTime += 0.2f;
+
+
 }

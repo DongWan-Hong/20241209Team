@@ -85,7 +85,7 @@ public:
 	INT GetHp() { return m_iHp; }
 	BOSSTYPE GetBossType() { return m_eBossType; }
 	bool Get_HoldBullet() { return m_bHoldBullet; }
-
+	virtual void Jump_Pattern();
 protected:
 	INT m_iHp;
 	BOSSTYPE m_eBossType;
