@@ -55,7 +55,8 @@ void CBoss_FireMan::Initialize()
 //CObjMgr::Get_Instance()->Add_Object(OBJ_BOSSBULLET, CAbstractFactory<CFire_Storm>::Create(m_tInfo.fX, m_tInfo.fY, DIR_RIGHT));
 int CBoss_FireMan::Update()
 {
-	m_tInfo.fY += 1.f;
+	Jumping();
+
 
 	m_tInfo.fX += m_fSpeed;
 
@@ -88,12 +89,7 @@ int CBoss_FireMan::Update()
 	//Jumping();
 
 	// 랜덤 점프
-	if (!m_bJump && rand() % 100 < 20) // 20% 확률로 점프 시작
-	{
-		m_bJump = true;
-		m_fJumpPower = 15.f; // 점프 파워 설정
-		m_fTime = 0.f;       // 점프 시간 초기화
-	}
+
 
 	Update_Rect();
 	return OBJ_NOEVENT;

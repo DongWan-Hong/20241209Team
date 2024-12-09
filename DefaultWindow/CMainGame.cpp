@@ -11,6 +11,7 @@
 #include "CSceneMgr.h"
 #include "CWall.h"
 #include "CWeaponsMenuMgr.h"
+#include "CAnimMgr.h"
 //
 
 CMainGame::CMainGame()
@@ -116,11 +117,13 @@ void CMainGame::Render()
 
 void CMainGame::Release()
 {
+    CAnimMgr::Destroy_Instance();
+
     CWeaponsMenuMgr::Destroy_Instance();
 	CSceneMgr::Destroy_Instance();
 	CScrollMgr::Destroy_Instance();
 	CBmpMgr::Destroy_Instance();
-	CKeyMgr::Destroy_Instance();
+	CKeyMgr::Destroy_Instance();   
 	CLineMgr::Destroy_Instance();
 	CBlockMgr::Destroy_Instance();
 	CObjMgr::DestroyInstance();

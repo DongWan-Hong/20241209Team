@@ -62,10 +62,11 @@ void CAnimMgr::Insert_Animation(const TCHAR* pImgKey, CAnimation* _pAnim)
 	{
 		m_mapAnim.insert({ pImgKey, _pAnim });
 	}
-	//else if (iter->second != _pAnim)
-	//{
-	//	m_mapAnim.erase(iter);
-	//	m_mapAnim.insert({ pImgKey, _pAnim });
+	else if (iter->second != _pAnim)
+	{
+		delete _pAnim;
+		_pAnim = nullptr;
+	}
 
 	//}
 }

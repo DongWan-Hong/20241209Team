@@ -135,8 +135,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\241209 20시 채영 프로젝트\DefaultWindow\CGut_M1_Bullet.h" />
-    <ClInclude Include="..\..\..\241209 20시 채영 프로젝트\DefaultWindow\CGut_M2_Bullet.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockMgr.h" />
     <ClInclude Include="Block_Cut.h" />
@@ -210,8 +208,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\241209 20시 채영 프로젝트\DefaultWindow\CGut_M1_Bullet.cpp" />
-    <ClCompile Include="..\..\..\241209 20시 채영 프로젝트\DefaultWindow\CGut_M2_Bullet.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockMgr.cpp" />
     <ClCompile Include="Block_Cut.cpp" />

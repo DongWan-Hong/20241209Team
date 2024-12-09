@@ -19,7 +19,7 @@ CObj* CObjMgr::Get_Target(OBJID eID, CObj* pDst)
 	if (m_ObjList[eID].empty())
 		return nullptr;
 
-	CObj*	pTarget = nullptr;
+	CObj* pTarget = nullptr;
 	float	fDistance(0.f);
 
 	for (auto& Src : m_ObjList[eID])
@@ -37,7 +37,7 @@ CObj* CObjMgr::Get_Target(OBJID eID, CObj* pDst)
 			pTarget = Src;
 			fDistance = fDiagonal;
 		}
-	}		
+	}
 
 	return pTarget;
 }
@@ -85,7 +85,7 @@ void CObjMgr::Late_Update()
 	// 원충돌 기반 삭제
 	// CCollisionMgr::Collision_Circle(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
 	//CCollisionMgr::Collision_Circle(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_MOUSE]);
-	
+
 	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
 
 
@@ -113,6 +113,21 @@ void CObjMgr::Late_Update()
 	CCollisionMgr::Collision_Floor(m_ObjList[OBJ_PLAYER].front(), m_ObjList[OBJ_BLOCK]);
 	CCollisionMgr::Collision_Celling(m_ObjList[OBJ_PLAYER].front(), m_ObjList[OBJ_BLOCK]);
 	CCollisionMgr::Collision_Box(m_ObjList[OBJ_PLAYER].front(), m_ObjList[OBJ_BLOCK]);
+
+	for (auto Boss : m_ObjList[OBJ_BOSS])
+	{
+		CCollisionMgr::Collision_Floor(Boss, m_ObjList[OBJ_BLOCK]);
+		CCollisionMgr::Collision_Celling(Boss, m_ObjList[OBJ_BLOCK]);
+		CCollisionMgr::Collision_Box(Boss, m_ObjList[OBJ_BLOCK]);
+	}
+
+	for (auto Monster : m_ObjList[OBJ_MONSTER])
+
+	{
+		CCollisionMgr::Collision_Floor(Monster, m_ObjList[OBJ_BLOCK]);
+		CCollisionMgr::Collision_Celling(Monster, m_ObjList[OBJ_BLOCK]);
+		CCollisionMgr::Collision_Box(Monster, m_ObjList[OBJ_BLOCK]);
+	}
 }
 
 void CObjMgr::Render(HDC hDC)

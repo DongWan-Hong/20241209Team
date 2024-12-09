@@ -181,8 +181,23 @@
     <Filter Include="05_UI">
       <UniqueIdentifier>{cbb05b24-cfc1-4b18-be34-0ea08d1ffba4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Chae">
-      <UniqueIdentifier>{91a8c1aa-9430-4e5a-805f-d2417b87bfdb}</UniqueIdentifier>
+    <Filter Include="01. Obj\02. Monster\ChaeMonster">
+      <UniqueIdentifier>{bebf8761-baa9-4245-8810-f3d5ec85e817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\02. Monster\ChaeMonster\Monster_2">
+      <UniqueIdentifier>{7eb52a2c-a80d-40e8-be62-4890dd3c8906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\02. Monster\ChaeMonster\Monster_1">
+      <UniqueIdentifier>{c94823fc-cfe2-4000-83ae-e6f71b0138e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\08. Boss\Chae\Boss">
+      <UniqueIdentifier>{34c171a9-288b-4a2b-80f9-ba2939758d64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\08. Boss\Chae\Boss_Bullet">
+      <UniqueIdentifier>{dadc1bbd-b5b8-4c2b-9a9c-bf5a7dded92b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\02. Monster\ChaeMonster\Monster_3">
+      <UniqueIdentifier>{d6d7c1aa-ddf2-4adc-aeb3-aa94c1b916ae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -378,32 +393,26 @@
     <ClInclude Include="CUIMgr.h">
       <Filter>05_UI</Filter>
     </ClInclude>
-    <ClInclude Include="CSuper_Arm.h">
-      <Filter>Chae</Filter>
-    </ClInclude>
     <ClInclude Include="Boss_GutsMan.h">
-      <Filter>Chae</Filter>
+      <Filter>01. Obj\08. Boss\Chae\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="CFireWall.h">
-      <Filter>Chae</Filter>
+    <ClInclude Include="CSuper_Arm.h">
+      <Filter>01. Obj\08. Boss\Chae\Boss_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="CGut_M1_Bullet.h">
-      <Filter>Chae</Filter>
-    </ClInclude>
-    <ClInclude Include="CGut_M2_Bullet.h">
-      <Filter>Chae</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\241209 20시 채영 프로젝트\DefaultWindow\CGut_M2_Bullet.h">
-      <Filter>Chae</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\241209 20시 채영 프로젝트\DefaultWindow\CGut_M1_Bullet.h">
-      <Filter>Chae</Filter>
+      <Filter>01. Obj\02. Monster\ChaeMonster\Monster_1</Filter>
     </ClInclude>
     <ClInclude Include="CGut_Monster1.h">
-      <Filter>Chae</Filter>
+      <Filter>01. Obj\02. Monster\ChaeMonster\Monster_1</Filter>
+    </ClInclude>
+    <ClInclude Include="CFireWall.h">
+      <Filter>01. Obj\02. Monster\ChaeMonster\Monster_3</Filter>
+    </ClInclude>
+    <ClInclude Include="CGut_M2_Bullet.h">
+      <Filter>01. Obj\02. Monster\ChaeMonster\Monster_2</Filter>
     </ClInclude>
     <ClInclude Include="CGut_Monster2.h">
-      <Filter>Chae</Filter>
+      <Filter>01. Obj\02. Monster\ChaeMonster\Monster_2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -584,32 +593,26 @@
     <ClCompile Include="CUIMgr.cpp">
       <Filter>05_UI</Filter>
     </ClCompile>
-    <ClCompile Include="CSuper_Arm.cpp">
-      <Filter>Chae</Filter>
-    </ClCompile>
     <ClCompile Include="Boss_GutsMan.cpp">
-      <Filter>Chae</Filter>
+      <Filter>01. Obj\08. Boss\Chae\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="CFireWall.cpp">
-      <Filter>Chae</Filter>
+    <ClCompile Include="CSuper_Arm.cpp">
+      <Filter>01. Obj\08. Boss\Chae\Boss_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="CGut_M1_Bullet.cpp">
-      <Filter>Chae</Filter>
-    </ClCompile>
-    <ClCompile Include="CGut_M2_Bullet.cpp">
-      <Filter>Chae</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\241209 20시 채영 프로젝트\DefaultWindow\CGut_M1_Bullet.cpp">
-      <Filter>Chae</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\241209 20시 채영 프로젝트\DefaultWindow\CGut_M2_Bullet.cpp">
-      <Filter>Chae</Filter>
+      <Filter>01. Obj\02. Monster\ChaeMonster\Monster_1</Filter>
     </ClCompile>
     <ClCompile Include="CGut_Monster1.cpp">
-      <Filter>Chae</Filter>
+      <Filter>01. Obj\02. Monster\ChaeMonster\Monster_1</Filter>
+    </ClCompile>
+    <ClCompile Include="CFireWall.cpp">
+      <Filter>01. Obj\02. Monster\ChaeMonster\Monster_3</Filter>
+    </ClCompile>
+    <ClCompile Include="CGut_M2_Bullet.cpp">
+      <Filter>01. Obj\02. Monster\ChaeMonster\Monster_2</Filter>
     </ClCompile>
     <ClCompile Include="CGut_Monster2.cpp">
-      <Filter>Chae</Filter>
+      <Filter>01. Obj\02. Monster\ChaeMonster\Monster_2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

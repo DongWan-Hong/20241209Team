@@ -30,10 +30,18 @@ public:
     // 플레이어가 몬스터한테 뽀뽀할때
     static void Collision_Player_Monster(CObj* _pPlayer, list<CObj*> _Monster);
 
-    static float Collision_RangeChack(CObj* _pPlayer, CObj* _pMonster);
 
+    //무결이 거리체크
+    static float Collision_RangeChack(CObj* _pPlayer, CObj* _pMonster);
+    
+
+    // 바닥 충돌
     static void Collision_Floor(CObj* _pPlayer, list<CObj*> _Src);
+
+    //좌우충돌
     static void Collision_Box(CObj* _Player, list<CObj*> _Src);
+
+    //천장충돌
     static void Collision_Celling(CObj* _pPlayer, list<CObj*> _Src);
 };
 
